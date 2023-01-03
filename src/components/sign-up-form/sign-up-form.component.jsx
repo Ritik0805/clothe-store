@@ -18,6 +18,9 @@ export default function SignUpForm() {
   const { displayName, email, password, confirmPassword } = formFields;
   console.log(formFields);
 
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password != confirmPassword) {
@@ -30,6 +33,7 @@ export default function SignUpForm() {
         password
       );
       await createUserDocumentFromAuth(user, { displayName });
+      resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         console.log("User creation gave an error", error);
